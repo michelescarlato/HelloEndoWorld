@@ -9,6 +9,8 @@ import subprocess
 from json import dumps
 from flask import current_app, Blueprint, jsonify
 
+global PORT
+
 # This fixed a visualization error in the browser
 def jsonify(*args, **kwargs):
     indent = None
@@ -82,5 +84,10 @@ def version():
     GitHeadHash= GitHash(gitrepo)
     return jsonify(GitProject ="HelloEndoWorld",
                     GitHeadHash= GitHeadHash)
+portString = str(PORT)
+print(portString)
+f = open("tests/PORT.txt", "w")
+f.write(portString)
+f.close()
 
 app.run(host='0.0.0.0', port=PORT)
