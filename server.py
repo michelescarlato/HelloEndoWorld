@@ -9,38 +9,31 @@ import subprocess
 from json import dumps
 from flask import current_app, Blueprint, jsonify
 
-
+# This fixed a visualization error in the browser
 def jsonify(*args, **kwargs):
     indent = None
     separators = (',', ':')
-
     if current_app.config['JSONIFY_PRETTYPRINT_REGULAR'] and not request.is_xhr:
         indent = 2
         separators = (', ', ': ')
-
     if args and kwargs:
         raise TypeError('jsonify() behavior undefined when passed both args and kwargs')
     elif len(args) == 1:  # single args are passed directly to dumps()
         data = args[0]
     else:
         data = args or kwargs
-
     return current_app.response_class(
         (dumps(data, indent=indent, separators=separators), '\n'),
         mimetype=current_app.config['JSONIFY_MIMETYPE']
     )
 
-
+#Check the port number range
 class PortAction(argparse.Action):
     def __call__(self, parser, namespace, values, option_string=None):
         if not 0 < values < 2**16:
             raise argparse.ArgumentError(self, "port numbers must be between 0 and 65535")
         setattr(namespace, self.dest, values)
-
-
 parser = argparse.ArgumentParser()
-
-
 parser.add_argument("-p", "--port",
                         help='Port number to connect to',
                         dest='port',
@@ -48,46 +41,41 @@ parser.add_argument("-p", "--port",
                         type=int,
                         action=PortAction,
                         metavar="{0..65535}")
-
-
-
 args = parser.parse_args()
 if args.port:
     #print("port set"+str(args.port))
     PORT = args.port
 
-
+# Camel-case gets cut by spaces
 def separated_str(inputname):
     inputnameStrip = re.sub("([A-Z])", " \\1", inputname).strip()
     return inputnameStrip
 
-
-app = flask.Flask(__name__)
-app.config["DEBUG"] = True
-
-gitrepo = "https://github.com/michelescarlato/HelloEndoWorld.git"
-
+# Git hash of the head of the repository
 def GitHash(gitrepoName):
     hash = check_output(["git", "ls-remote","-h", gitrepoName])
     hash = str(hash)
     hashOutput = hash.split()
     hashHead = hashOutput[0]
-    return hashHead[3:42]
+    hashHead = hashHead[3:42]
+    return hashHead
 
-#print(GitHash(gitrepo))
+app = flask.Flask(__name__)
+app.config["DEBUG"] = False
+logging.basicConfig(filename='demo.log', level=logging.INFO)
+gitrepo = "https://github.com/michelescarlato/HelloEndoWorld.git"
+
 
 @app.route('/helloworld', methods=['GET'])
 def home():
-    return flask.render_template('hello_stranger.html')
+    #return flask.render_template('hello_stranger.html')
+    return "Hello Stranger"
 
 @app.route('/helloworld/<name>')
-#def hello(nome):
-    #print(separated_str(name))
-    #https://www.tutorialspoint.com/Regex-in-Python-to-put-spaces-between-words-starting-with-capital-letters
-    #return "Hello "+nome
 def hello(name=None):
     nome=separated_str(name)
-    return flask.render_template('hello.html', name=nome)
+    #return flask.render_template('hello.html', name=nome)
+    return "Hello "+nome
 
 @app.route('/versionz')
 def version():
