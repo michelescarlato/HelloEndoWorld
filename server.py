@@ -4,7 +4,31 @@ import argparse
 import urllib
 import flask
 import re
+from subprocess import check_output
+import subprocess
+from json import dumps
+from flask import current_app, Blueprint, jsonify
 
+
+def jsonify(*args, **kwargs):
+    indent = None
+    separators = (',', ':')
+
+    if current_app.config['JSONIFY_PRETTYPRINT_REGULAR'] and not request.is_xhr:
+        indent = 2
+        separators = (', ', ': ')
+
+    if args and kwargs:
+        raise TypeError('jsonify() behavior undefined when passed both args and kwargs')
+    elif len(args) == 1:  # single args are passed directly to dumps()
+        data = args[0]
+    else:
+        data = args or kwargs
+
+    return current_app.response_class(
+        (dumps(data, indent=indent, separators=separators), '\n'),
+        mimetype=current_app.config['JSONIFY_MIMETYPE']
+    )
 
 
 class PortAction(argparse.Action):
@@ -41,6 +65,16 @@ def separated_str(inputname):
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
 
+gitrepo = "https://github.com/michelescarlato/HelloEndoWorld.git"
+
+def GitHash(gitrepoName):
+    hash = check_output(["git", "ls-remote","-h", gitrepoName])
+    hash = str(hash)
+    hashOutput = hash.split()
+    hashHead = hashOutput[0]
+    return hashHead[3:42]
+
+#print(GitHash(gitrepo))
 
 @app.route('/helloworld', methods=['GET'])
 def home():
@@ -54,5 +88,11 @@ def home():
 def hello(name=None):
     nome=separated_str(name)
     return flask.render_template('hello.html', name=nome)
+
+@app.route('/versionz')
+def version():
+    GitHeadHash= GitHash(gitrepo)
+    return jsonify(GitProject ="HelloEndoWorld",
+                    GitHeadHash= GitHeadHash)
 
 app.run(host='0.0.0.0', port=PORT)
