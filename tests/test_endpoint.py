@@ -10,8 +10,6 @@ PORT = f.read()
 # Flag test
 
 
-
-
 # Endpoint tests
 def GitHash(gitrepoName):
     hash = check_output(["git", "ls-remote","-h", gitrepoName])
@@ -44,3 +42,6 @@ def test_request_responseJSON():
     assert response.headers["Content-Type"] == "application/json"
     assert response_body["GitProject"] == "HelloEndoWorld"
     assert response_body["GitHeadHash"] == GitHeadHash
+
+#def test_server_port():
+    #python3 /home/mi1chelescarlato/HelloEndoWorld/server.py
