@@ -8,8 +8,25 @@ from subprocess import check_output
 import subprocess
 from json import dumps
 from flask import current_app, Blueprint, jsonify
+import os
+"""App configuration."""
+from os import environ, path
+from dotenv import load_dotenv
 
-global PORT
+# Find .env file
+basedir = path.abspath(path.dirname(__file__))
+load_dotenv(path.join(basedir, '.env'))
+PORT = environ.get('PORT')
+LOGFILE = environ.get('LOGFILE')
+HOST = environ.get('HOST')
+GITREPO = environ.get('GITREPO')
+LOGGING_LEVEL = environ.get('LOGGING_LEVEL')
+PATH = environ.get('PYTHONHOME')
+
+#os.environ['PATH'] = PATH
+#print(os.environ)
+#print(os.environ.get('PATH'))
+#print(PATH)
 
 # This fixed a visualization error in the browser
 def jsonify(*args, **kwargs):
@@ -39,14 +56,24 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-p", "--port",
                         help='Port number to connect to',
                         dest='port',
-                        default=8080,
+                        #default=8080,
                         type=int,
                         action=PortAction,
                         metavar="{0..65535}")
+parser.add_argument("-P", "--PATH",
+                        help='PATH environment override',
+                        dest='PATH',
+                        type=str,
+                        )
+
 args = parser.parse_args()
 if args.port:
     #print("port set"+str(args.port))
     PORT = args.port
+
+if args.PATH:
+    #print("port set"+str(args.port))
+    PATH = args.PATH
 
 # Camel-case gets cut by spaces
 def separated_str(inputname):
@@ -64,8 +91,7 @@ def GitHash(gitrepoName):
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = False
-logging.basicConfig(filename='demo.log', level=logging.INFO)
-gitrepo = "https://github.com/michelescarlato/HelloEndoWorld.git"
+logging.basicConfig(filename=LOGFILE, level=logging.INFO)
 
 
 @app.route('/helloworld', methods=['GET'])
@@ -81,13 +107,16 @@ def hello(name=None):
 
 @app.route('/versionz')
 def version():
-    GitHeadHash= GitHash(gitrepo)
+    GitHeadHash= GitHash(GITREPO)
     return jsonify(GitProject ="HelloEndoWorld",
                     GitHeadHash= GitHeadHash)
+
 portString = str(PORT)
-print(portString)
 f = open("tests/PORT.txt", "w")
 f.write(portString)
 f.close()
 
-app.run(host='0.0.0.0', port=PORT)
+os.environ['PATH'] = PATH
+#print(PATH)
+print("This path will be used:\n"+os.environ.get('PATH'))
+app.run(host=HOST, port=PORT)
