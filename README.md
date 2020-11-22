@@ -48,3 +48,5 @@ To test the HTTP endpoints:
 curl IPAddress:8080/helloworld
 curl IPAddress:8080/helloworld/PaoloDeLuca
 curl IPAddress:8080/versionz
+
+To run the tests against the Docker image it is necessary to set the parameters HOST and PORT manually in the tests/test_endpoint.py file.

@@ -51,25 +51,28 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-p", "--port",
                         help='Port number to connect to',
                         dest='port',
-                        #default=8080,
+                        default=8079,
                         type=int,
                         action=PortAction,
                         metavar="{0..65535}")
 parser.add_argument("-P", "--PATH",
                         help='PATH environment override',
                         dest='PATH',
-                        type=str,
-                        )
-
+                        default='/usr/bin',
+                        type=str)
 args = parser.parse_args()
+#self.name = args.name
+
 if args.port:
     #print("port set"+str(args.port))
     PORT = args.port
-
+#else
+    #PORT = '8080'
 if args.PATH:
     #print("port set"+str(args.port))
     PATH = args.PATH
-
+#else
+    #PATH =
 # Camel-case gets cut by spaces
 def separated_str(inputname):
     inputnameStrip = re.sub("([A-Z])", " \\1", inputname).strip()
