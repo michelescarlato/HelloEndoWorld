@@ -16,17 +16,12 @@ from dotenv import load_dotenv
 # Find .env file
 basedir = path.abspath(path.dirname(__file__))
 load_dotenv(path.join(basedir, '.env'))
+# Load parametrs from .env file
+PATH = environ.get('PYTHONHOME')
 PORT = environ.get('PORT')
 LOGFILE = environ.get('LOGFILE')
 HOST = environ.get('HOST')
 GITREPO = environ.get('GITREPO')
-LOGGING_LEVEL = environ.get('LOGGING_LEVEL')
-PATH = environ.get('PYTHONHOME')
-
-#os.environ['PATH'] = PATH
-#print(os.environ)
-#print(os.environ.get('PATH'))
-#print(PATH)
 
 # This fixed a visualization error in the browser
 def jsonify(*args, **kwargs):
@@ -117,6 +112,5 @@ f.write(portString)
 f.close()
 
 os.environ['PATH'] = PATH
-#print(PATH)
 print("This path will be used:\n"+os.environ.get('PATH'))
 app.run(host=HOST, port=PORT)
