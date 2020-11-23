@@ -1,8 +1,12 @@
 # HelloEndoWorld
 After cloning the the project, and entering into the directory HelloEndoWorld run:
 
+```bash
 cd HelloEndoWorld
 make
+
+```
+
 
 It will install the requirements to run the server.
 
