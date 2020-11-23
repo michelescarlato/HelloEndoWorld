@@ -18,8 +18,8 @@ basedir = path.abspath(path.dirname(__file__))
 load_dotenv(path.join(basedir, '.env'))
 # Load parametrs from .env file
 PATH = environ.get('PYTHONHOME')
-PORT = environ.get('PORT')
 LOGFILE = environ.get('LOGFILE')
+PORT = environ.get('PORT')
 HOST = environ.get('HOST')
 GITREPO = environ.get('GITREPO')
 

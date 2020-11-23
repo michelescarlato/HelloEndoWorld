@@ -3,14 +3,16 @@ import unittest
 import requests
 from subprocess import check_output
 import subprocess
+from os import environ, path
+from dotenv import load_dotenv
 
-#f = open("PORT.txt", "r")
-#PORT = f.read()
-PORT="8079"
-HOST="172.17.0.2"
-# Flag test
-
-
+# Find .env file
+basedir = path.abspath(path.dirname(__file__))
+load_dotenv(path.join(basedir, '../.env'))
+# Load parametrs from .env file
+PORT = environ.get('PORT')
+HOST = environ.get('HOST')
+GITREPO = environ.get('GITREPO')
 
 # Endpoint tests
 def GitHash(gitrepoName):
@@ -20,8 +22,8 @@ def GitHash(gitrepoName):
     hashHead = hashOutput[0]
     hashHead = hashHead[3:42]
     return hashHead
-gitrepo = "https://github.com/michelescarlato/HelloEndoWorld.git"
-GitHeadHash= GitHash(gitrepo)
+
+GitHeadHash= GitHash(GITREPO)
 
 def test_request_response():
     response = requests.get('http://'+HOST+':'+PORT+'/helloworld')
