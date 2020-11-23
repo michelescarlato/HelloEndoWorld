@@ -39,7 +39,7 @@ pipeline{
         stage('run test'){
             steps{
                     dir("HelloEndoWorld"){
-                    sh 'pytest'}
+                    sh 'python3 -m pytest'}
                   }
                 }
         stage('Kill the server'){
