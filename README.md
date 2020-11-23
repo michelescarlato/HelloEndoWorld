@@ -37,16 +37,18 @@ Tests for the flags still need to be written.
 To run a docker instance, build the container with:
 docker build -t python-helloendoworld .
 After building, run it with:
-docker run -it -w /HelloEndoWorld python-helloendoworld python3 server.py
+docker run -it -w /HelloEndoWorld helloendoworld python3 server.py
 
 To check which IP address is using the container execute:
 docker ps
 Then:
 docker inspect CONTAINER_ID | grep IPAddress
 
+Usually this ip address is 172.17.0.2.
+
 To test the HTTP endpoints:
-curl IPAddress:8080/helloworld
-curl IPAddress:8080/helloworld/PaoloDeLuca
-curl IPAddress:8080/versionz
+curl 172.17.0.2:8080/helloworld
+curl 172.17.0.2:8080/helloworld/PaoloDeLuca
+curl 172.17.0.2:8080/versionz
 
 To run the tests against the Docker image it is necessary to set the parameters HOST and PORT manually in the tests/test_endpoint.py file.
