@@ -36,13 +36,30 @@ pipeline{
                     sh 'python3 server.py &'}
                   }
                 }
-        stage('run test'){
+        stage('run test on standard port'){
             steps{
                     dir("HelloEndoWorld"){
                     sh 'python3 -m pytest'}
                   }
                 }
         stage('Kill the server'){
+            steps{
+                    sh 'pkill python3'
+                  }
+                }
+        stage('run HTTP server on different port'){
+            steps{
+                    dir("HelloEndoWorld"){
+                    sh 'python3 server.py -p 7077 &'}
+                  }
+                }
+        stage('run test on different port'){
+            steps{
+                    dir("HelloEndoWorld"){
+                    sh 'python3 -m pytest'}
+                  }
+                }
+        stage('Kill the server again'){
             steps{
                     sh 'pkill python3'
                   }

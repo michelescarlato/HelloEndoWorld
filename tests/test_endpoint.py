@@ -10,9 +10,11 @@ from dotenv import load_dotenv
 basedir = path.abspath(path.dirname(__file__))
 load_dotenv(path.join(basedir, '../.env'))
 # Load parametrs from .env file
-PORT = environ.get('PORT')
+#PORT = environ.get('PORT')
 HOST = environ.get('HOST')
 GITREPO = environ.get('GITREPO')
+f = open("PORT.txt", "r")
+PORT = f.read()
 
 # Endpoint tests
 def GitHash(gitrepoName):
