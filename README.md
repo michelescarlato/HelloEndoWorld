@@ -3,7 +3,7 @@
 For this project, I used Xubuntu 20.04, and I needed to install the following packages:
 
 ```bash
-sudo apt-get install python3-pip make 
+sudo apt-get install python3-pip make
 ```
 
 After cloning the project, and entering into the directory HelloEndoWorld run:
@@ -56,7 +56,7 @@ docker build -t python-helloendoworld .
 
 After building, run it with:
 ```bash
-docker run -it -w /HelloEndoWorld helloendoworld python3 server.py
+docker run -it helloendoworld python3 server.py
 ```
 
 To check which IP address is using the container execute:
@@ -78,4 +78,3 @@ curl 172.17.0.2:8080/versionz
 ```
 
 Jenkinsfile contains the pipeline used to run the HTTP server and tests.
-
