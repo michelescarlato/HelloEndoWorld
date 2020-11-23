@@ -1,12 +1,12 @@
 # HelloEndoWorld
 
-For this project I used Xubuntu 20.04, and I needed to install the following packages:
+For this project, I used Xubuntu 20.04, and I needed to install the following packages:
 
 ```bash
 sudo apt-get install python3-pip make 
 ```
 
-After cloning the the project, and entering into the directory HelloEndoWorld run:
+After cloning the project, and entering into the directory HelloEndoWorld run:
 
 ```bash
 cd HelloEndoWorld
@@ -68,7 +68,7 @@ Then use the container id in the following command:
 docker inspect $CONTAINER_ID | grep IPAddress
 ```
 
-Usually this ip address is 172.17.0.2.
+Usually, this IP address is 172.17.0.2.
 
 To test the HTTP endpoints:
 ```bash
