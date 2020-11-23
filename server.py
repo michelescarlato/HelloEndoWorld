@@ -51,7 +51,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-p", "--port",
                         help='Port number to connect to',
                         dest='port',
-                        default=8080,
+                        #default=8080,
                         type=int,
                         action=PortAction,
                         metavar="{0..65535}")
