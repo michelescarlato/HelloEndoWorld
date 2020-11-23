@@ -13,7 +13,7 @@ load_dotenv(path.join(basedir, '../.env'))
 #PORT = environ.get('PORT')
 HOST = environ.get('HOST')
 GITREPO = environ.get('GITREPO')
-f = open("PORT.txt", "r")
+f = open("tests/PORT.txt", "r")
 PORT = f.read()
 
 # Endpoint tests
