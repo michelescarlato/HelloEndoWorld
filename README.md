@@ -1,4 +1,11 @@
 # HelloEndoWorld
+
+For this project I used Xubuntu 20.04, and I needed to install the following packages:
+
+```bash
+sudo apt-get install python3-pip make 
+```
+
 After cloning the the project, and entering into the directory HelloEndoWorld run:
 
 ```bash
