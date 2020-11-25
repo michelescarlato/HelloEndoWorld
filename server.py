@@ -13,7 +13,7 @@ import os
 from os import environ, path, system
 from dotenv import load_dotenv
 
-# Find .env file
+# Load .env file
 basedir = path.abspath(path.dirname(__file__))
 load_dotenv(path.join(basedir, '.env'))
 # Load parametrs from .env file
@@ -71,21 +71,14 @@ parser.add_argument("-s", "--shutdown",
 
 
 args = parser.parse_args()
-#self.name = args.name
 
 if args.port:
-    #print("port set"+str(args.port))
     PORT = args.port
-#else
-    #PORT = '8080'
 if args.PATH:
-    #print("port set"+str(args.port))
     PATH = args.PATH
 if args.shutdown:
-    #print("port set"+str(args.port))
     SHUTDOWN = args.shutdown
-#else
-    #PATH =
+
 # Camel-case gets cut by spaces
 def separated_str(inputname):
     inputnameStrip = re.sub("([A-Z])", " \\1", inputname).strip()
@@ -107,13 +100,11 @@ print("app is running line 93")
 
 @app.route('/helloworld', methods=['GET'])
 def home():
-    #return flask.render_template('hello_stranger.html')
     return "Hello Stranger"
 
 @app.route('/helloworld/<name>')
 def hello(name=None):
     nome=separated_str(name)
-    #return flask.render_template('hello.html', name=nome)
     return "Hello "+nome
 
 @app.route('/versionz')
@@ -137,12 +128,9 @@ os.environ['PATH'] = PATH
 print("This path will be used:\n"+os.environ.get('PATH'))
 
 
-
 limit = -1
 SHUTDOWN = int(SHUTDOWN)
 if SHUTDOWN > limit:
-    subprocess.call(["python3", "server_shutdown.py", "&"])
-    #subprocess.call("python3 server_shutdown.py", shell=True)
-    #subprocess.Popen(["/usr/bin/python3", "server_shutdown.py"])
-print("app is running last line")
+    subprocess.Popen(["python3", "server_shutdown.py"])
+
 app.run(host=HOST, port=PORT)
