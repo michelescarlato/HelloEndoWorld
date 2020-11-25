@@ -56,7 +56,7 @@ docker build -t python-helloendoworld .
 
 After building, run it with:
 ```bash
-docker run -it helloendoworld python3 server.py
+docker run -it helloendoworld python3 server.py -p 8079
 ```
 
 To check which IP address is using the container execute:
@@ -75,6 +75,12 @@ To test the HTTP endpoints:
 curl 172.17.0.2:8080/helloworld
 curl 172.17.0.2:8080/helloworld/PaoloDeLuca
 curl 172.17.0.2:8080/versionz
+```
+
+In alternative the container can be run on localhost, using docker run -it with the -d and -p paramters:
+
+```bash
+docker run -it -d -p 8080:8080 sanmiguelsan/helloendoworld python3 server.py
 ```
 
 Jenkinsfile contains the pipeline used to run the HTTP server and tests.
