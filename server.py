@@ -13,7 +13,6 @@ import os
 from os import environ, path, system
 from dotenv import load_dotenv
 
-print(os.environ)
 # Find .env file
 basedir = path.abspath(path.dirname(__file__))
 load_dotenv(path.join(basedir, '.env'))
@@ -142,7 +141,7 @@ print("This path will be used:\n"+os.environ.get('PATH'))
 limit = -1
 SHUTDOWN = int(SHUTDOWN)
 if SHUTDOWN > limit:
-    subprocess.call(["python3", "server_shutdown.py"])
+    subprocess.call(["python3", "server_shutdown.py", "&"])
     #subprocess.call("python3 server_shutdown.py", shell=True)
     #subprocess.Popen(["/usr/bin/python3", "server_shutdown.py"])
 print("app is running last line")
