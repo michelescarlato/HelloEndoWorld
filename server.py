@@ -13,12 +13,12 @@ import os
 from os import environ, path, system
 from dotenv import load_dotenv
 
-
+print(os.environ)
 # Find .env file
 basedir = path.abspath(path.dirname(__file__))
 load_dotenv(path.join(basedir, '.env'))
 # Load parametrs from .env file
-PATH = environ.get('PYTHONHOME')
+PATH = environ.get('PATH')
 LOGFILE = environ.get('LOGFILE')
 PORT = environ.get('PORT')
 HOST = environ.get('HOST')
