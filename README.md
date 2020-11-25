@@ -29,10 +29,17 @@ It is possible to run it on different ports using the -p flag, e.g.:
 python3 server.py -p 7933
 ```
 
-It is also possible to use a different PATH using the -P flag, e.g.:
+It is possible to use a different PATH using the -P flag, e.g.:
 ```bash
 python3 server.py -P /usr/bin/
 ```
+
+It is also possible to set a timer for a graceful shutdown of the flask server using the -s flag, e.g.:
+```bash
+python3 server.py -s 30
+```
+will shutdown the server after 30 seconds of activity.
+
 It is also available a help using -h flag.
 
 Default configuration parameters are specified in the file .env.
@@ -47,6 +54,7 @@ python3 -m pytest
 ```
 
 At the moment only http endpoints have unit tests, which can be found in tests/test_flaskr.py
+The Jenkins pipeline also performs the execution of unit tests on a different port.
 Tests for the flags still need to be written.
 
 To run a docker instance, build the container with:
