@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: helloendoworld
-          image: docker.io/sanmiguelsan/helloendoworld:shut30sec
+          image: docker.io/sanmiguelsan/helloendoworld:shut30secV2
           ports:
             - containerPort: 8080
               protocol: TCP
