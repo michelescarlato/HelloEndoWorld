@@ -4,5 +4,5 @@ RUN git clone https://github.com/michelescarlato/HelloEndoWorld.git
 WORKDIR "/HelloEndoWorld"
 RUN make
 EXPOSE 8080
-CMD ["python3","server.py"]
+CMD ["python3","server.py","-s 30"]
 #RUN python3 server.py
