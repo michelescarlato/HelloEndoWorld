@@ -10,8 +10,9 @@ from json import dumps
 from flask import current_app, Blueprint, jsonify
 import os
 """App configuration."""
-from os import environ, path
+from os import environ, path, system
 from dotenv import load_dotenv
+
 
 # Find .env file
 basedir = path.abspath(path.dirname(__file__))
@@ -22,6 +23,8 @@ LOGFILE = environ.get('LOGFILE')
 PORT = environ.get('PORT')
 HOST = environ.get('HOST')
 GITREPO = environ.get('GITREPO')
+SHUTDOWN = environ.get('SHUTDOWN')
+
 
 # This fixed a visualization error in the browser
 def jsonify(*args, **kwargs):
@@ -51,15 +54,23 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-p", "--port",
                         help='Port number to connect to',
                         dest='port',
-                        #default=8080,
+                        #default=PORT,
                         type=int,
                         action=PortAction,
                         metavar="{0..65535}")
 parser.add_argument("-P", "--PATH",
                         help='PATH environment override',
                         dest='PATH',
-                        default='/usr/bin',
+                        #default=environ.get('PYTHONHOME'),
                         type=str)
+
+parser.add_argument("-s", "--shutdown",
+                        help='shutdown timer express in seconds',
+                        dest='shutdown',
+                        #default="SHUTDOWN",
+                        type=str)
+
+
 args = parser.parse_args()
 #self.name = args.name
 
@@ -71,6 +82,9 @@ if args.port:
 if args.PATH:
     #print("port set"+str(args.port))
     PATH = args.PATH
+if args.shutdown:
+    #print("port set"+str(args.port))
+    SHUTDOWN = args.shutdown
 #else
     #PATH =
 # Camel-case gets cut by spaces
@@ -90,7 +104,7 @@ def GitHash(gitrepoName):
 app = flask.Flask(__name__)
 app.config["DEBUG"] = False
 logging.basicConfig(filename=LOGFILE, level=logging.INFO)
-
+print("app is running line 93")
 
 @app.route('/helloworld', methods=['GET'])
 def home():
@@ -114,7 +128,22 @@ f = open("tests/PORT.txt", "w")
 f.write(portString)
 f.close()
 
+shutdownString = str(SHUTDOWN)
+f = open("shutdown_timer.txt", "w")
+f.write(shutdownString)
+f.close()
+
+
 os.environ['PATH'] = PATH
 print("This path will be used:\n"+os.environ.get('PATH'))
 
+
+
+limit = -1
+SHUTDOWN = int(SHUTDOWN)
+if SHUTDOWN > limit:
+    subprocess.call(["python3", "server_shutdown.py"])
+    #subprocess.call("python3 server_shutdown.py", shell=True)
+    #subprocess.Popen(["/usr/bin/python3", "server_shutdown.py"])
+print("app is running last line")
 app.run(host=HOST, port=PORT)
