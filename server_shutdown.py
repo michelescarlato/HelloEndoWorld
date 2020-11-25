@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from flask import Flask, jsonify, request
 from subprocess import check_output
 import subprocess
 from os import environ, path
@@ -6,16 +7,22 @@ from dotenv import load_dotenv
 #import time
 import sys
 import time
+import json, os, signal
 
-f = open("shutdown_timer.txt", "r")
-SHUTDOWN = f.read()
-SHUTDOWN = int(SHUTDOWN)
+
+# Load parametrs from shutdown.txt file
+basedir = path.abspath(path.dirname(__file__))
+load_dotenv(path.join(basedir, 'shutdown.txt'))
+
+SHUTDOWN = environ.get('SHUTDOWN')
+PID = environ.get('PID')
+
 print("Running pkill python")
 
-#Graphical countdown visualization
-for i in range(SHUTDOWN,0,-1):
+for i in range(int(SHUTDOWN),0,-1):
     sys.stdout.write(str(i)+' ')
     sys.stdout.flush()
     time.sleep(1)
-
-check_output(["pkill", "python"])
+#graceful shutdown of flask
+os.kill(int(PID), signal.SIGINT)
+#check_output(["pkill", "python"])

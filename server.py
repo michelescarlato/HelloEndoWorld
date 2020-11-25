@@ -113,14 +113,15 @@ def version():
     return jsonify(GitProject ="HelloEndoWorld",
                     GitHeadHash= GitHeadHash)
 
-portString = str(PORT)
 f = open("tests/PORT.txt", "w")
-f.write(portString)
+f.write(str(PORT))
 f.close()
-
-shutdownString = str(SHUTDOWN)
-f = open("shutdown_timer.txt", "w")
-f.write(shutdownString)
+f = open("shutdown.txt", "w")
+f.write("SHUTDOWN="+str(SHUTDOWN)+"\n")
+f.close()
+PID = os.getpid()
+f = open("shutdown.txt", "a")
+f.write("PID="+str(PID))
 f.close()
 
 
