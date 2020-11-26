@@ -87,3 +87,15 @@ curl 172.17.0.2:8080/helloworld/PaoloDeLuca
 curl 172.17.0.2:8080/versionz
 ```
 Jenkinsfile contains the pipeline used to run the HTTP server and tests.
+
+As required in at Level 2, the HTTP service can be stopped using the endpoint:
+```bash
+$IP:$PORT/shutdown/
+```
+that will send the SIGINT signal immediately to the application.
+
+It can also be specified a timer adding an integer number after shutdown:
+```bash
+$IP:$PORT/shutdown/25
+```
+that will send after 25 seconds the SIGINT signal.

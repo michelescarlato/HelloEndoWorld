@@ -12,6 +12,9 @@ import os
 """App configuration."""
 from os import environ, path, system
 from dotenv import load_dotenv
+import time
+import json, os, signal
+
 
 # Load .env file
 basedir = path.abspath(path.dirname(__file__))
@@ -24,8 +27,17 @@ HOST = environ.get('HOST')
 GITREPO = environ.get('GITREPO')
 SHUTDOWN = environ.get('SHUTDOWN')
 
-
+#API Shutdown function
+PID = os.getpid()
+def shutdown(secs):
+    print("Shutting down server in:")
+    for i in range(int(secs),0,-1):
+        sys.stdout.write(str(i)+' ')
+        sys.stdout.flush()
+        time.sleep(1)
+    os.kill(int(PID), signal.SIGINT)
 # This fixed a visualization error in the browser
+
 def jsonify(*args, **kwargs):
     indent = None
     separators = (',', ':')
@@ -113,13 +125,22 @@ def version():
     return jsonify(GitProject ="HelloEndoWorld",
                     GitHeadHash= GitHeadHash)
 
+@app.route('/shutdown/<secs>')
+def shutd(secs="0"):
+    #print("AAShutting down server")
+    shutdown(int(secs))
+    return "Shutting down server"
+
+
+
+
 f = open("tests/PORT.txt", "w")
 f.write(str(PORT))
 f.close()
 f = open("shutdown.txt", "w")
 f.write("SHUTDOWN="+str(SHUTDOWN)+"\n")
 f.close()
-PID = os.getpid()
+#PID = os.getpid()
 f = open("shutdown.txt", "a")
 f.write("PID="+str(PID))
 f.close()
