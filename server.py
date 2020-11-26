@@ -125,12 +125,11 @@ def version():
     return jsonify(GitProject ="HelloEndoWorld",
                     GitHeadHash= GitHeadHash)
 
+@app.route('/shutdown/', defaults={"secs":"1"})
 @app.route('/shutdown/<secs>')
-def shutd(secs="0"):
-    #print("AAShutting down server")
+def shutd(secs):
     shutdown(int(secs))
     return "Shutting down server"
-
 
 
 
