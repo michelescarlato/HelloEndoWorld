@@ -22,4 +22,4 @@ spec:
           lifecycle:
               preStop:
                 exec:
-                  command: ["curl localhost:8080/helloworld"]
+                  command: ["curl localhost:8080/shutdown/1"]
