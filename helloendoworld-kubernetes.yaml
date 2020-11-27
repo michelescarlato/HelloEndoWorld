@@ -14,12 +14,12 @@ spec:
     spec:
       containers:
         - name: helloendoworld
-          image: docker.io/sanmiguelsan/helloendoworld:V7
+          image: docker.io/sanmiguelsan/helloendoworld:V7curl
           ports:
             - containerPort: 8080
               protocol: TCP
       #terminationGracePeriodSeconds: 30
-      lifecycle:
-        preStop:
-          exec:
-            command: ["curl","localhost:8080/shutdown/"]
+          lifecycle:
+              preStop:
+                exec:
+                  command: ["curl localhost:8080/helloworld"]

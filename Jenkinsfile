@@ -44,7 +44,8 @@ pipeline{
                 }
         stage('Kill the server'){
             steps{
-                    sh 'pkill python3'
+                    sh 'curl localhost:8080/shutdown/1'
+                    //sh 'pkill python3'
                   }
                 }
         stage('run HTTP server on different port'){
@@ -56,7 +57,8 @@ pipeline{
         stage('run test on different port'){
             steps{
                     dir("HelloEndoWorld"){
-                    sh 'python3 -m pytest'}
+                    sh 'curl localhost:8080/shutdown/1'}
+                    //sh 'python3 -m pytest'}
                   }
                 }
         stage('Kill the server again'){
