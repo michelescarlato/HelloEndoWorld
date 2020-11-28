@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: helloendoworld-job
+spec:
+  backoffLimit: 5
+  activeDeadlineSeconds: 32
+  #replicas: 2
+  template:
+    spec:
+      containers:
+      - name: helloendoworld
+        image: docker.io/sanmiguelsan/helloendoworld:V8Shut30
+        ports:
+          - containerPort: 8080
+            protocol: TCP
+      restartPolicy: Never
+      terminationGracePeriodSeconds: 30

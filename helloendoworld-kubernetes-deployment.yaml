@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: helloendoworld
+  name: helloendoworld-deployment
 spec:
   selector:
     matchLabels:
@@ -14,12 +14,14 @@ spec:
     spec:
       containers:
         - name: helloendoworld
-          image: docker.io/sanmiguelsan/helloendoworld:V7curl
+          image: docker.io/sanmiguelsan/helloendoworld:V8Shut30
           ports:
             - containerPort: 8080
               protocol: TCP
       #terminationGracePeriodSeconds: 30
-          lifecycle:
-              preStop:
-                exec:
-                  command: ["curl localhost:8080/shutdown/"]
+      #restartPolicy: Never
+      #INVESTIGATE on RESTART POLICY!! or backoffLimit
+          #lifecycle:
+          #    preStop:
+          #      exec:
+          #        command: ["curl localhost:8080/shutdown/"]
