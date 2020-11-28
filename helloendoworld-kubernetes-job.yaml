@@ -3,11 +3,11 @@ kind: Job
 metadata:
   name: helloendoworld-job
 spec:
-  selector:
-    matchLabels:
-      run: helloendoworld-batch
+  #selector:
+    #matchLabels:
+      #run: helloendoworld-batch
   backoffLimit: 5
-  activeDeadlineSeconds: 32
+  activeDeadlineSeconds: 30
   #replicas: 2
   template:
     spec:
@@ -18,4 +18,3 @@ spec:
           - containerPort: 8080
             protocol: TCP
       restartPolicy: Never
-      terminationGracePeriodSeconds: 30

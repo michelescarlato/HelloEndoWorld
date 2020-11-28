@@ -6,5 +6,5 @@ sudo kubectl describe job helloendoworld-job && sleep 1
 
 # take the NodePort number
 #sudo kubectl describe services helloendoworld-service && sleep 1
-sudo kubectl get pods --selector="run=helloendoworld-batch" --output=wide && sleep 1
+sudo kubectl get pods --output=wide && sleep 1
 #sudo kubectl describe services helloendoworld-service | grep NodePort && sleep 1
