@@ -17,18 +17,17 @@ load_dotenv(path.join(basedir, '../.env'))
 PORT = environ.get('PORT')
 HOST = environ.get('HOST')
 #PATH = str("/etc/local")
-time.sleep(2)
 
 def test_PATH():
     time.sleep(2)
     PATH = str("/etc/local")
     subprocess.Popen(["python3", "server.py","-p","7777","-P",""+PATH+""])
+    time.sleep(2)
     #requests.get('http://'+HOST+':'+PORT+'/PATH/')
     response = requests.get('http://'+HOST+':7777/PATH')
     res=str(response.text)
     assert str(PATH) == str(res)
-    requests.get('http://'+HOST+':'+PORT+'/shutdown/')
-    time.sleep(2)
 
-    #time.sleep(2)
-    #check_output(["pkill","python3"])
+def test_shutdown():
+    requests.get('http://'+HOST+':7777/shutdown/')
+    time.sleep(2)
