@@ -4,7 +4,7 @@ from subprocess import check_output
 import subprocess
 from os import environ, path
 from dotenv import load_dotenv
-
+import time
 # Find .env file
 basedir = path.abspath(path.dirname(__file__))
 load_dotenv(path.join(basedir, '../.env'))
@@ -13,8 +13,11 @@ load_dotenv(path.join(basedir, '../.env'))
 HOST = environ.get('HOST')
 GITREPO = environ.get('GITREPO')
 f = open("tests/PORT.txt", "r")
-PORT = f.read()
-
+#PORT = f.read()
+PORT = "8080"
+subprocess.Popen(["python3", "server.py","-p",""+PORT+""])
+print("server running")
+time.sleep(2)
 # Endpoint tests
 def GitHash(gitrepoName):
     hash = check_output(["git", "ls-remote","-h", gitrepoName])
@@ -27,6 +30,7 @@ def GitHash(gitrepoName):
 GitHeadHash= GitHash(GITREPO)
 
 def test_request_response():
+    time.sleep(2)
     response = requests.get('http://'+HOST+':'+PORT+'/helloworld')
     assert response.status_code == 200
     res=response.text
@@ -47,6 +51,10 @@ def test_request_responseJSON():
     assert response.headers["Content-Type"] == "application/json"
     assert response_body["GitProject"] == "HelloEndoWorld"
     assert response_body["GitHeadHash"] == GitHeadHash
+
+def test_request_shutdown():
+    response = requests.get('http://'+HOST+':'+PORT+'/shutdown')
+    assert response.status_code == 200
 
 #def test_server_port():
     #python3 /home/mi1chelescarlato/HelloEndoWorld/server.py

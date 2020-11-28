@@ -90,6 +90,11 @@ if args.PATH:
     PATH = args.PATH
 if args.shutdown:
     SHUTDOWN = args.shutdown
+print(str(PATH))
+#setting the PATH with the variable
+os.environ['PATH'] = PATH
+
+
 
 # Camel-case gets cut by spaces
 def separated_str(inputname):
@@ -132,6 +137,13 @@ def shutd(secs):
     return "Shutting down server"
 
 
+@app.route('/PATH', methods=['GET'])
+def path():
+    CurrentPath = os.getenv("PATH")
+    return str(CurrentPath)
+    #return str(PATH)
+
+
 
 f = open("tests/PORT.txt", "w")
 f.write(str(PORT))
@@ -145,9 +157,12 @@ f.write("PID="+str(PID))
 f.close()
 
 
-os.environ['PATH'] = PATH
-print("This path will be used:\n"+os.environ.get('PATH'))
 
+#print("This path will be used:\n"+os.environ.get('PATH'))
+#CurrentPath = os.getenv("PATH")
+#print(str(CurrentPath))
+#time.sleep(2)
+#print(sys.path)
 
 limit = -1
 SHUTDOWN = int(SHUTDOWN)

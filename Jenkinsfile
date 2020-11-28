@@ -13,9 +13,9 @@ pipeline{
                     sh 'pwd'
                     sh 'ls -lah'
                     sh 'make'
+                  }
                 }
-            }
-        }
+              }
         stage('Fetch and Compile:if repo exists'){
             when { expression { MY_FILE == 'true' } }
             steps {
@@ -30,41 +30,23 @@ pipeline{
                   }
                 }
               }
-        stage('run HTTP server'){
+        stage('run PATH flag test'){
             steps{
                     dir("HelloEndoWorld"){
-                    sh 'python3 server.py &'}
+                    sh 'pytest tests/test_1a_path_flag.py'}
                   }
-                }
-        stage('run test on standard port'){
+              }
+        stage('run test on non-standard port'){
             steps{
                     dir("HelloEndoWorld"){
-                    sh 'python3 -m pytest'}
+                    sh 'pytest tests/test_2a_port_flag.py'}
                   }
-                }
-        stage('Kill the server'){
-            steps{
-                    sh 'curl localhost:8080/shutdown/1'
-                    //sh 'pkill python3'
-                  }
-                }
-        stage('run HTTP server on different port'){
+              }
+        stage('run test on endpoints'){
             steps{
                     dir("HelloEndoWorld"){
-                    sh 'python3 server.py -p 7077 &'}
+                    sh 'pytest tests/test_3_endpoints.py'}
                   }
-                }
-        stage('run test on different port'){
-            steps{
-                    dir("HelloEndoWorld"){
-                    sh 'curl localhost:8080/shutdown/1'}
-                    //sh 'python3 -m pytest'}
-                  }
-                }
-        stage('Kill the server again'){
-            steps{
-                    sh 'pkill python3'
-                  }
-                }
-            }
+              }
         }
+    }
