@@ -3,6 +3,9 @@ kind: Job
 metadata:
   name: helloendoworld-job
 spec:
+  selector:
+    matchLabels:
+      run: helloendoworld-batch
   backoffLimit: 5
   activeDeadlineSeconds: 32
   #replicas: 2
