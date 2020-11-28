@@ -7,3 +7,4 @@ sudo kubectl expose deployment helloendoworld --type=NodePort --name=helloendowo
 # take the NodePort number
 sudo kubectl describe services helloendoworld-service && sleep 1
 sudo kubectl get pods --selector="run=load-balancer-example" --output=wide && sleep 1
+sudo kubectl describe services helloendoworld-service | grep NodePort && sleep 1 
