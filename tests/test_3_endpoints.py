@@ -15,7 +15,7 @@ GITREPO = environ.get('GITREPO')
 f = open("tests/PORT.txt", "r")
 #PORT = f.read()
 PORT = "8080"
-subprocess.Popen(["python3", "server.py","-p",""+PORT+""])
+subprocess.Popen(["python3", "server.py","-p",""+PORT+"","-s"+"-1"])
 print("server running")
 time.sleep(2)
 # Endpoint tests

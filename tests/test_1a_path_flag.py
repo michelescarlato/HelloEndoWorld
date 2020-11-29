@@ -21,7 +21,7 @@ HOST = environ.get('HOST')
 def test_PATH():
     time.sleep(2)
     PATH = str("/etc/local")
-    subprocess.Popen(["python3", "server.py","-p","7777","-P",""+PATH+""])
+    subprocess.Popen(["python3", "server.py","-p","7777","-P",""+PATH+"","-s"+"-1"])
     time.sleep(2)
     #requests.get('http://'+HOST+':'+PORT+'/PATH/')
     response = requests.get('http://'+HOST+':7777/PATH')

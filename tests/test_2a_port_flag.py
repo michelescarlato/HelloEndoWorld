@@ -23,9 +23,8 @@ def test_port():
     PORT = str(6685)
     subprocess.Popen(["pwd"])
     #subprocess.Popen(["python3", "server.py","-p",""+PORT+"","&"])
-    subprocess.Popen(["python3", "server.py","-p",""+PORT+""])
+    subprocess.Popen(["python3", "server.py","-p",""+PORT+"","-s"+"-1"])
     print("server running")
     time.sleep(2)
     requests.get('http://'+HOST+':'+PORT+'/shutdown/')
     time.sleep(2)
-    

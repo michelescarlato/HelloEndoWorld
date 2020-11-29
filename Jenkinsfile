@@ -48,5 +48,12 @@ pipeline{
                     sh 'pytest tests/test_3_endpoints.py'}
                   }
               }
+        stage('run kubernetes job'){
+          steps{
+                  dir("HelloEndoWorld"){
+                  sh 'sudo kubectl apply -f helloendoworld-kubernetes-job.yaml && sleep 45'
+                  sh 'sudo kubectl delete job helloendoworld-job && sleep 5'}
+                }
+            }
         }
     }
