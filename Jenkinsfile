@@ -51,7 +51,8 @@ pipeline{
         stage('run kubernetes job'){
           steps{
                   dir("HelloEndoWorld"){
-                  sh 'sudo kubectl apply -f helloendoworld-kubernetes-job.yaml && sleep 45'
+                  sh 'sudo kubectl apply -f helloendoworld-kubernetes-job.yaml && sleep 10'
+                  sh 'curl 172.17.0.4:8080/helloworld && sleep 5'
                   sh 'sudo kubectl delete job helloendoworld-job && sleep 5'}
                 }
             }
