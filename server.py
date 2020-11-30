@@ -113,7 +113,6 @@ def GitHash(gitrepoName):
 app = flask.Flask(__name__)
 app.config["DEBUG"] = False
 logging.basicConfig(filename=LOGFILE, level=logging.INFO)
-print("app is running line 93")
 
 @app.route('/helloworld', methods=['GET'])
 def home():

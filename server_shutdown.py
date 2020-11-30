@@ -17,7 +17,7 @@ load_dotenv(path.join(basedir, 'shutdown.txt'))
 SHUTDOWN = environ.get('SHUTDOWN')
 PID = environ.get('PID')
 
-print("Running sigpkill on HTTP server")
+print("Running sigint on HTTP server")
 
 for i in range(int(SHUTDOWN),0,-1):
     sys.stdout.write(str(i)+' ')
