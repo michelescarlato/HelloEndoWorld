@@ -16,6 +16,7 @@ echo "Waiting $TIMER seconds"
 sleep $TIMER
 echo "$TIMER seconds passed"
 sudo kubectl port-forward $POD_NAME 8080:8080 > outfile &
+sleep 5
 
 
 counter=1
