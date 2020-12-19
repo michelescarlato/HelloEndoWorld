@@ -11,7 +11,7 @@ resource "kubernetes_namespace" "minikube-namespace" {
         name = "my-first-terraform-namespace"
   }
   # script
-  provisioner "helm_commands" {
+  provisioner "remote-exec" {
     inline = [
       "chmod +x helm_commands.sh",
       "sudo ./helm_commands.sh",
