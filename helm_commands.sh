@@ -25,6 +25,7 @@ do
   #((counter++))
   let "counter++"
   curl http://localhost:8080/helloworld
+  sleep 2
 done
 
 sudo helm uninstall helloendoworld-chart
