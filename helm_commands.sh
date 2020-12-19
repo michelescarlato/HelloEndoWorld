@@ -9,13 +9,6 @@ sudo kubectl describe pod
 
 sudo kubectl get pod
 
-
-
-
 sudo kubectl port-forward $POD_NAME 8080:8080
-
-
-
-curl http://121.179.158.56:8080/helloworld
-
-sudo helm uninstall helloendoworld-chart
+#curl http://121.179.158.56:8080/helloworld
+#sudo helm uninstall helloendoworld-chart
