@@ -11,10 +11,19 @@ sudo kubectl describe pod
 
 sudo kubectl get pod
 
-sleep $TIMER
 echo "Waiting $TIMER seconds"
-
+sleep $TIMER
+echo "$TIMER seconds passed"
 sudo kubectl port-forward $POD_NAME 8080:8080
-#curl http://121.179.158.56:8080/helloworld
+
+for (( c=1; c<=5; c++ ))
+do
+   echo "$c test the HTTP server on /helloworld endpoint"
+   curl http://localhost:8080/helloworld
+done
+
+sudo helm uninstall helloendoworld-chart
+sudo kubectl delete ns my-first-terraform-namespace
+
 #sudo helm uninstall helloendoworld-chart
 #sudo kubectl delete ns my-first-terraform-namespace
