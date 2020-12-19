@@ -25,6 +25,7 @@ until [ $counter -gt 10 ]
 do
   echo "$counter test the HTTP server on /helloworld endpoint"
   curl http://localhost:8080/helloworld
+  curl http://localhost:80/helloworld
   sleep 2
   let "counter++"
 done
