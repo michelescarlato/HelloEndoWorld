@@ -8,7 +8,8 @@ export POD_NAME=$(sudo kubectl get pods -l "app.kubernetes.io/name=helloendoworl
 sudo kubectl describe pod
 
 sudo kubectl get pod
-
+sleep 60
 sudo kubectl port-forward $POD_NAME 8080:8080
 #curl http://121.179.158.56:8080/helloworld
 #sudo helm uninstall helloendoworld-chart
+#sudo kubectl delete ns my-first-terraform-namespace
