@@ -29,7 +29,7 @@ do
 done
 
 sudo helm uninstall helloendoworld-chart
-sudo kubectl delete ns my-first-terraform-namespace
+#sudo kubectl delete ns my-first-terraform-namespace
 
 cp port_forwarding.log ~/port_forwarding.log
 bg
