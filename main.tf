@@ -12,8 +12,6 @@ resource "kubernetes_namespace" "minikube-namespace" {
   }
   # script
   provisioner "local-exec" {
-      command = "chmod +x helm_commands.sh"
-      command = "sudo ./helm_commands.sh"
-    ]
+      command = "chmod +x helm_commands.sh && sudo ./helm_commands.sh"
   }
 }
