@@ -31,7 +31,8 @@ done
 sudo helm uninstall helloendoworld-chart
 sudo kubectl delete ns my-first-terraform-namespace
 
-cp port_forwarding.log ~/
+cp port_forwarding.log ~/port_forwarding.log
+bg
 #trap "killall background" EXIT
 exit 0
 
