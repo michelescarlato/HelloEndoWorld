@@ -50,7 +50,7 @@ ingress:
       http:
         paths:
         - backend:
-            serviceName: hello-kubernetes-first
+            serviceName: helloendoworld-chart
             servicePort: 80
   tls: []
   #  - secretName: chart-example-tls
