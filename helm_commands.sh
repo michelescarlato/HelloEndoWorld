@@ -1,3 +1,4 @@
+#!/bin/bash
 TIMER=60
 
 sudo helm install helloendoworld-chart helloendoworld-chart/ --values helloendoworld-chart/values.yaml
@@ -21,8 +22,8 @@ counter=1
 until [ $counter -gt 10 ]
 do
   echo "$counter test the HTTP server on /helloworld endpoint\n"
-  curl http://localhost:8080/helloworld
   ((counter++))
+  curl http://localhost:8080/helloworld  
 done
 
 sudo helm uninstall helloendoworld-chart
