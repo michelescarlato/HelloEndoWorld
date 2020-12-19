@@ -13,9 +13,10 @@ sudo kubectl describe pod
 sudo kubectl get pod
 
 echo "Waiting $TIMER seconds"
-#sleep $TIMER
+sleep $TIMER
 echo "$TIMER seconds passed"
-#sudo kubectl port-forward $POD_NAME 8080:8080 > port_forwarding.log &
+touch port_forwarding.log
+sudo kubectl port-forward $POD_NAME 8080:8080 > port_forwarding.log &
 sleep 5
 
 
@@ -29,11 +30,9 @@ do
 done
 
 sudo helm uninstall helloendoworld-chart
-#sudo kubectl delete ns my-first-terraform-namespace
-
+cat port_forwarding.log
 cp port_forwarding.log ~/port_forwarding.log
-bg
-#trap "killall background" EXIT
+
 exit 0
 
 #sudo helm uninstall helloendoworld-chart
