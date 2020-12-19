@@ -22,8 +22,7 @@ until [ $counter -gt 10 ]
 do
   echo "$counter test the HTTP server on /helloworld endpoint\n"
   curl http://localhost:8080/helloworld
-  echo
-((counter++))
+  ((counter++))
 done
 
 sudo helm uninstall helloendoworld-chart
