@@ -14,7 +14,7 @@ sudo kubectl get pod
 echo "Waiting $TIMER seconds"
 sleep $TIMER
 echo "$TIMER seconds passed"
-sudo kubectl port-forward $POD_NAME 8080:8080 &
+sudo kubectl port-forward $POD_NAME 8080:8080 > outfile &
 
 for (( c=1; c<=5; c++ ))
 do
