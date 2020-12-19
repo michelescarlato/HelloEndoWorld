@@ -17,7 +17,7 @@ echo "$TIMER seconds passed"
 sudo kubectl port-forward $POD_NAME 8080:8080 > outfile &
 
 C=1
-for (( C=1; C<=5; c++ ))
+for (( C=1; C<=5; C++ ))
 do
    echo "$C test the HTTP server on /helloworld endpoint\n"
    curl http://localhost:8080/helloworld
