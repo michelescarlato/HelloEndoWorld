@@ -22,7 +22,7 @@ sleep 5
 counter=1
 until [ $counter -gt 10 ]
 do
-  echo "$counter test the HTTP server on /helloworld endpoint\n"
+  echo "$counter test the HTTP server on /helloworld endpoint"
   curl http://localhost:8080/helloworld
   sleep 2
   let "counter++"
@@ -33,7 +33,7 @@ sudo kubectl delete ns my-first-terraform-namespace
 
 cp port_forwarding.log ~/
 #trap "killall background" EXIT
-EXIT 0
+exit 0
 
 #sudo helm uninstall helloendoworld-chart
 #sudo kubectl delete ns my-first-terraform-namespace
