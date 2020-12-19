@@ -15,7 +15,7 @@ sudo kubectl get pod
 echo "Waiting $TIMER seconds"
 sleep $TIMER
 echo "$TIMER seconds passed"
-sudo kubectl port-forward $POD_NAME 8080:8080 > outfile &
+sudo kubectl port-forward $POD_NAME 8080:8080 > port_forwarding.log &
 sleep 5
 
 
@@ -23,14 +23,15 @@ counter=1
 until [ $counter -gt 10 ]
 do
   echo "$counter test the HTTP server on /helloworld endpoint\n"
-  #((counter++))
-  let "counter++"
   curl http://localhost:8080/helloworld
   sleep 2
+  let "counter++"
 done
 
 sudo helm uninstall helloendoworld-chart
 sudo kubectl delete ns my-first-terraform-namespace
+
+trap "killall background" EXIT
 
 #sudo helm uninstall helloendoworld-chart
 #sudo kubectl delete ns my-first-terraform-namespace
