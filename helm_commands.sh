@@ -31,8 +31,16 @@ do
 done
 
 sudo bg >> port_forwarding.log
+echo "----------------------------"
 sudo ps aux | grep kubectl port-forward >> port_forwarding.log
+echo "----------------------------"
 sudo ps aux | grep kubectl >> port_forwarding.log
+echo "----------------------------"
+trap "killall background" EXIT
+echo "---------After killall------"
+sudo ps aux | grep kubectl port-forward >> port_forwarding.log
+echo "----------------------------"
+
 sudo helm uninstall helloendoworld-chart
 cat port_forwarding.log
 cp port_forwarding.log ../port_forwarding.log
