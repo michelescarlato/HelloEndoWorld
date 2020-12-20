@@ -6,9 +6,9 @@ provider "kubernetes" {
   client_key             = "${file("/root/.minikube/client.key")}"
   cluster_ca_certificate = "${file("/root/.minikube/ca.crt")}"
 }
-resource "kubernetes_namespace" "minikube-namespace" {
+resource "kubernetes_deployment" "minikube-deployment" {
   metadata {
-        name = "my-first-terraform-namespace"
+        name = "my-first-terraform-deployment"
   }
   # script
   provisioner "local-exec" {
