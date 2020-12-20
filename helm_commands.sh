@@ -1,7 +1,7 @@
 #!/bin/bash
 TIMER=60
 
-sudo helm install helloendoworld-chart helloendoworld-chart/ --values helloendoworld-chart/values.yaml
+sudo helm install helloendoworld-chart helloendoworld-chart/ --values helloendoworld-chart/values_no_nginx.yaml
 export NODE_PORT=$(sudo kubectl get --namespace default -o jsonpath="{.spec.ports[0].nodePort}" services helloendoworld-chart)
 export NODE_IP=$(sudo kubectl get nodes --namespace default -o jsonpath="{.items[0].status.addresses[0].address}")
 echo http://$NODE_IP:$NODE_PORT
@@ -16,7 +16,7 @@ echo "Waiting $TIMER seconds"
 sleep $TIMER
 echo "$TIMER seconds passed"
 touch port_forwarding.log
-#sudo kubectl port-forward $POD_NAME 8080:8080 > port_forwarding.log &
+sudo kubectl port-forward $POD_NAME 8080:8080 > port_forwarding.log &
 sleep 5
 
 
@@ -30,6 +30,9 @@ do
   let "counter++"
 done
 
+sudo bg >> port_forwarding.log
+sudo ps aux | grep kubectl port-forward >> port_forwarding.log
+sudo ps aux | grep kubectl >> port_forwarding.log
 sudo helm uninstall helloendoworld-chart
 cat port_forwarding.log
 cp port_forwarding.log ../port_forwarding.log
