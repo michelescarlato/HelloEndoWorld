@@ -32,7 +32,7 @@ done
 
 sudo bg >> port_forwarding.log
 echo "----------------------------"  >> port_forwarding.log
-sudo ps aux | grep kubectl port-forward >> port_forwarding.log
+sudo ps aux | grep "kubectl port-forward" >> port_forwarding.log
 echo "----------------------------"  >> port_forwarding.log
 sudo ps aux | grep kubectl >> port_forwarding.log
 echo "----------------------------"  >> port_forwarding.log
