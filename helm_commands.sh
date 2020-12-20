@@ -31,13 +31,13 @@ do
 done
 
 sudo bg >> port_forwarding.log
-echo "----------------------------"  >> port_forwarding.log
+echo "-------grep-----------------"  >> port_forwarding.log
 sudo ps aux | grep "kubectl port-forward" >> port_forwarding.log
-echo "----------------------------"  >> port_forwarding.log
-sudo ps aux | grep kubectl >> port_forwarding.log
-echo "----------------------------"  >> port_forwarding.log
+echo "-------pkill-----------------"  >> port_forwarding.log
+sudo pkill "kubectl port-forward" >> port_forwarding.log
+echo "------killall-------------------"  >> port_forwarding.log
 trap "killall background" EXIT  >> port_forwarding.log
-echo "---------After killall------"  >> port_forwarding.log
+echo "---------grep again------"  >> port_forwarding.log
 sudo ps aux | grep kubectl port-forward >> port_forwarding.log
 echo "----------------------------"  >> port_forwarding.log
 
