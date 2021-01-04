@@ -15,7 +15,7 @@ sudo kubectl get pod
 echo "Waiting $TIMER seconds"
 sleep $TIMER
 echo "$TIMER seconds passed"
-touch port_forwarding.log
+sudo touch port_forwarding.log
 sudo kubectl port-forward $POD_NAME 8080:8080 > port_forwarding.log &
 sleep 5
 
@@ -43,7 +43,7 @@ echo "----------------------------"  >> port_forwarding.log
 
 sudo helm uninstall helloendoworld-chart
 cat port_forwarding.log
-cp port_forwarding.log ../port_forwarding.log
+sudo cp port_forwarding.log ../port_forwarding.log
 
 exit 0
 
