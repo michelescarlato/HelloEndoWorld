@@ -1,7 +1,7 @@
 #!/bin/bash
 TIMER=60
 
-sudo helm install helloendoworld-chart helloendoworld-chart/ --values helloendoworld-chart/values_no_nginx.yaml
+sudo helm install helloendoworld-chart helloendoworld-chart/ --values helloendoworld-chart/values.yaml
 export NODE_PORT=$(sudo kubectl get --namespace default -o jsonpath="{.spec.ports[0].nodePort}" services helloendoworld-chart)
 export NODE_IP=$(sudo kubectl get nodes --namespace default -o jsonpath="{.items[0].status.addresses[0].address}")
 echo http://$NODE_IP:$NODE_PORT
